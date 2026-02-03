@@ -2,23 +2,30 @@
   "name": "my-express-starter",
   "version": "1.0.0",
   "description": "Customized express starter template",
-  "main": "index.js",
   "scripts": {
+    "start": "npm run build && cross-env NODE_ENV=production node ./dist/server.js",
+    "dev": "cross-env NODE_ENV=development nodemon",
+    "typecheck": "tsc --noEmit",
+    "typecheck:watch": "tsc --noEmit --watch",
+    "build": "swc src -d dist --source-maps --copy-files",
+    "build:tsc": "tsc & tsc-alias",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
-  "repository": {
-    "type": "git",
-    "url": "git@github-personal:ZgTong/express-starter.git"
-  },
-  "keywords": [],
-  "author": "",
+  "author": "Zuguang Tong",
   "license": "ISC",
-  "type": "commonjs",
+  "type": "module",
   "dependencies": {
     "express": "^5.2.1"
   },
   "devDependencies": {
+    "@swc/cli": "^0.7.10",
+    "@swc/core": "^1.15.11",
+    "@types/express": "^5.0.6",
+    "@types/node": "^25.2.0",
+    "cross-env": "^10.1.0",
     "dotenv": "^17.2.3",
-    "nodemon": "^3.1.11"
+    "nodemon": "^3.1.11",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.9.3"
   }
 }
