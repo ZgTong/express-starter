@@ -3,11 +3,12 @@
   "version": "1.0.0",
   "description": "Customized express starter template",
   "scripts": {
+    "prepare": "husky",
     "start": "npm run build &&cross-env NODE_ENV=production node dist/server.js",
     "dev": "cross-env NODE_ENV=development tsx watch src/server.ts",
     "build": "esbuild src/server.ts --bundle --platform=node --format=esm --outdir=dist --packages=external",
-    "lint": "eslint src/**/*.ts",
-    "lint:fix": "eslint src/**/*.ts --fix",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Zuguang Tong",
@@ -37,6 +38,8 @@
     "eslint": "^9.39.2",
     "eslint-config-prettier": "^10.1.8",
     "eslint-plugin-prettier": "^5.5.5",
+    "husky": "^9.1.7",
+    "lint-staged": "^16.2.7",
     "prettier": "3.8.1",
     "tsx": "^4.21.0",
     "typescript": "^5.9.3",

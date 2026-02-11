@@ -12,6 +12,7 @@ export default defineConfig(
     globalIgnores(["**/*.js", "**/*.cjs", "**/*.mjs"]),
     eslint.configs.recommended,
     tseslint.configs.recommended,
+    tseslint.configs.stylistic,
+    eslintPluginPrettierRecommended,
     eslintConfigPrettier,
-    eslintPluginPrettierRecommended
 );

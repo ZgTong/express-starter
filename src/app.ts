@@ -1,22 +1,22 @@
-import compression from 'compression';
-import cookieParser from 'cookie-parser';
-import cors from 'cors';
-import express from 'express';
-import helmet from 'helmet';
-import hpp from 'hpp';
-import { NODE_ENV, PORT, ORIGIN, CREDENTIALS } from '@config/index';
-import type { Routes } from '@interfaces/routes.interface.ts'
-import { ErrorMiddleware } from '@middlewares/error.middleware';
-import { logger } from '@utils/logger';
+import compression from "compression";
+import cookieParser from "cookie-parser";
+import cors from "cors";
+import express from "express";
+import helmet from "helmet";
+import hpp from "hpp";
+import { NODE_ENV, PORT, ORIGIN, CREDENTIALS } from "@config/index";
+import type { Routes } from "@interfaces/routes.interface.ts";
+import { ErrorMiddleware } from "@middlewares/error.middleware";
+import { logger } from "@utils/logger";
 export class App {
   public app: express.Application;
-  public port: NodeJS.ProcessEnv['PORT'];
-  public env: NodeJS.ProcessEnv['NODE_ENV'];
+  public port: NodeJS.ProcessEnv["PORT"];
+  public env: NodeJS.ProcessEnv["NODE_ENV"];
 
   constructor(routes: Routes[]) {
     this.app = express();
     this.port = PORT || 3000;
-    this.env = NODE_ENV || 'development';
+    this.env = NODE_ENV || "development";
 
     this.initializeMiddlewares();
     this.initializeRoutes(routes);
@@ -44,7 +44,7 @@ export class App {
 
   private initializeRoutes(routes: Routes[]) {
     routes.forEach((route) => {
-      this.app.use(route.path || '/', route.router);
+      this.app.use(route.path || "/", route.router);
     });
   }
 
