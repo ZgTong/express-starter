@@ -1,5 +1,5 @@
 import { Router } from "express";
-import type { Routes } from '@interfaces/routes.interface';
+import type { Routes } from "@interfaces/routes.interface";
 
 export class AuthRoute implements Routes {
   public router = Router();
@@ -9,8 +9,8 @@ export class AuthRoute implements Routes {
   }
 
   private initializeRoutes() {
-    this.router.get('/auth', (req, res) => {
-      res.send('Auth Route');
+    this.router.get("/auth", (req, res) => {
+      res.send("Auth Route");
     });
   }
 }
