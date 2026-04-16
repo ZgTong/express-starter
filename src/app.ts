@@ -20,6 +20,7 @@ export class App {
 
     this.initializeMiddlewares();
     this.initializeRoutes(routes);
+    // this.initializeSwagger(); // TODO
     this.initializeErrorHandling();
   }
 
@@ -33,6 +34,7 @@ export class App {
   }
 
   private initializeMiddlewares() {
+    // this.app.use(morgan(LOG_FORMAT, { stream })); // TODO
     this.app.use(express.json());
     this.app.use(express.urlencoded({ extended: true }));
     this.app.use(cors({ origin: ORIGIN, credentials: CREDENTIALS }));
