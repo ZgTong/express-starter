@@ -1,7 +1,7 @@
 import { config } from "dotenv";
 
-const envFile = process.env.APP_ENV 
-  ? `.env.${process.env.APP_ENV}` 
+const envFile = process.env.APP_ENV
+  ? `.env.${process.env.APP_ENV}`
   : `.env.local`;
 
 config({

@@ -4,14 +4,18 @@ import cors from "cors";
 import express from "express";
 import helmet from "helmet";
 import hpp from "hpp";
+import { Server } from "http";
 import { APP_ENV, PORT, ORIGIN, CREDENTIALS } from "@config/index";
 import type { Routes } from "@interfaces/routes.interface.ts";
 import { ErrorMiddleware } from "@middlewares/error.middleware";
 import { logger } from "@utils/logger";
+import { prisma } from "@utils/prisma";
+
 export class App {
   public app: express.Application;
   public port: NodeJS.ProcessEnv["PORT"];
   public env: NodeJS.ProcessEnv["APP_ENV"];
+  private server?: Server;
 
   constructor(routes: Routes[]) {
     this.app = express();
@@ -24,13 +28,40 @@ export class App {
     this.initializeErrorHandling();
   }
 
-  public listen() {
-    this.app.listen(this.port, () => {
+  public async listen() {
+    try {
+      await prisma.$connect();
+      logger.info(`Prisma connected to database`);
+      this.server = this.app.listen(this.port);
       logger.info(`=================================`);
       logger.info(`======= ENV: ${this.env} =======`);
       logger.info(`🚀 App listening on the port ${this.port}`);
       logger.info(`=================================`);
-    });
+
+      // Graceful shutdown handlers
+      process.on("SIGINT", this.stop.bind(this));
+      process.on("SIGTERM", this.stop.bind(this));
+      process.on("uncaughtException", (error) => {
+        logger.error(`Uncaught Exception`, error);
+        this.stop();
+      });
+      process.on("unhandledRejection", (reason, promise) => {
+        logger.error(`Unhandled Rejection at:`, promise, `reason:`, reason);
+        this.stop();
+      });
+    } catch (error) {
+      logger.error(`App initialization failed`, error);
+      await this.stop();
+    }
+  }
+
+  public async stop() {
+    logger.info(`Stopping the application...`);
+    await prisma.$disconnect();
+    if (this.server) {
+      this.server.close();
+    }
+    process.exit(0);
   }
 
   private initializeMiddlewares() {

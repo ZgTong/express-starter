@@ -9,7 +9,7 @@ import eslintConfigPrettier from "eslint-config-prettier/flat";
 import eslintPluginPrettierRecommended from "eslint-plugin-prettier/recommended";
 
 export default defineConfig(
-    globalIgnores(["**/*.js", "**/*.cjs", "**/*.mjs"]),
+    globalIgnores(["**/*.js", "**/*.cjs", "**/*.mjs", "src/generated/**/*"]),
     eslint.configs.recommended,
     tseslint.configs.recommended,
     tseslint.configs.stylistic,
