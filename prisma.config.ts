@@ -3,7 +3,7 @@ import { defineConfig } from "prisma/config";
 
 // important, consistant with the .env file naming convention in src/config/index.ts
 config({
-  path: `.env.${process.env.NODE_ENV || "development"}.local`,
+  path: `.env.${process.env.APP_ENV || "local"}`,
 });
 
 export default defineConfig({

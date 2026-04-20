@@ -4,19 +4,19 @@ import cors from "cors";
 import express from "express";
 import helmet from "helmet";
 import hpp from "hpp";
-import { NODE_ENV, PORT, ORIGIN, CREDENTIALS } from "@config/index";
+import { APP_ENV, PORT, ORIGIN, CREDENTIALS } from "@config/index";
 import type { Routes } from "@interfaces/routes.interface.ts";
 import { ErrorMiddleware } from "@middlewares/error.middleware";
 import { logger } from "@utils/logger";
 export class App {
   public app: express.Application;
   public port: NodeJS.ProcessEnv["PORT"];
-  public env: NodeJS.ProcessEnv["NODE_ENV"];
+  public env: NodeJS.ProcessEnv["APP_ENV"];
 
   constructor(routes: Routes[]) {
     this.app = express();
     this.port = PORT || 3000;
-    this.env = NODE_ENV || "development";
+    this.env = APP_ENV;
 
     this.initializeMiddlewares();
     this.initializeRoutes(routes);

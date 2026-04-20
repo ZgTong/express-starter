@@ -1,6 +1,7 @@
 // Augmentation of NodeJS ProcessEnv to include custom environment variables
 declare namespace NodeJS {
   interface ProcessEnv {
+    APP_ENV: "dev" | "prod" | "test" | "local";
     NODE_ENV: "development" | "production" | "test";
     PORT: number;
     ORIGIN: string;
